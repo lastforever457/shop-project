@@ -24,20 +24,32 @@
     </head>
     <body data-bs-theme="dark">
         <header
-            class="container d-flex justify-content-center align-items-center"
+            class="container d-flex justify-content-center align-items-center position-sticky top-0 z-1"
         >
+            <p class="p-0 m-0 d-flex w-100 fs-4">
+                Hikmatilla Xudoyberdiyev's SHOP
+            </p>
             <input
                 name="search"
                 id="search"
-                class="form-control me-2"
+                class="form-control mx-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
             />
+            <select name="category" id="category" class="form-select">
+                <option value="default">Choose Brand</option>
+                <option value="Redmi">Redmi</option>
+                <option value="Apple">Apple</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Asus">ASUS</option>
+            </select>
             <span
                 id="shop-btn"
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
+                style="margin-left: 10px"
+                class="btn btn-outline-secondary d-flex justify-content-center align-items-center"
             >
                 <i class="fa-solid fa-cart-shopping"></i>
             </span>

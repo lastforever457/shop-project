@@ -6,14 +6,16 @@
 
 header {
     min-height: 80px;
+    background-color: #212529;
 }
 
-header span {
+header select {
+    width: 30%;
+}
+
+#shop-btn {
     width: 35px;
     height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     border: 1px solid gray;
     border-radius: 50%;
