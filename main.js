@@ -611,9 +611,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let searchBar = document.querySelector("#search");
     let searchBarText = "";
-    let shopBtn = document.querySelector("#shop-btn");
-    let shopTable = document.querySelector(".shop-table");
-    let category = document.querySelector("#category");
 
     function renderProductCards() {
         cards.innerHTML = "";
@@ -638,17 +635,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return "text-bg-danger";
         }
     }
-
     function chooseProduct(element) {
         let existingProduct = selectedProducts.find(
             (item) => item.id === element.id
         );
         if (existingProduct) {
-            // Product already exists, increment count
             existingProduct.count++;
         } else {
-            // Product does not exist, add as new item
-            selectedProducts.push({ ...element, count: 1 }); // Add count property
+            selectedProducts.push({ ...element, count: 1 });
         }
         localStorage.setItem(
             "selectedProducts",
@@ -656,7 +650,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         updateShoppingCart();
     }
-
     function updateShoppingCart() {
         try {
             let selectedProducts1 = JSON.parse(
@@ -664,7 +657,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             let shopTable = document.querySelector(".shop-table");
             shopTable.innerHTML = ""; // Clear previous content
-
             for (const product of selectedProducts1) {
                 let stroke = document.createElement("tr");
                 let row1 = document.createElement("td");
@@ -695,19 +687,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error(e);
         }
     }
-
     function removeProduct(element) {
         let existingProductIndex = selectedProducts.findIndex(
             (item) => item.id === element.id
         );
         if (existingProductIndex !== -1) {
-            // Product exists in the cart
             let existingProduct = selectedProducts[existingProductIndex];
             if (existingProduct.count > 1) {
-                // Decrement count by one
                 existingProduct.count--;
             } else {
-                // If count is 1, remove the entire product
                 selectedProducts.splice(existingProductIndex, 1);
             }
             localStorage.setItem(
@@ -717,7 +705,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateShoppingCart();
         }
     }
-
     function renderProductCard(element) {
         let cardWrapper = document.createElement("div");
         cardWrapper.classList.add("col-md-3", "col-sm-4");
@@ -765,4 +752,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         card.appendChild(buyBtn);
     }
+    function filterProductCards(searchText) {
+        const filteredProducts = productCardsList.filter((product) => {
+            return product.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase());
+        });
+        renderFilteredProductCards(filteredProducts);
+    }
+
+    function renderFilteredProductCards(filteredProducts) {
+        cards.innerHTML = "";
+        filteredProducts.forEach((product) => {
+            renderProductCard(product);
+        });
+    }
+
+    searchBar.addEventListener("input", function (event) {
+        searchBarText = event.target.value;
+        filterProductCards(searchBarText);
+    });
 });
